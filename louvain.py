@@ -19,6 +19,8 @@ karate_mod_results = []
 karate_conductance_results = []
 karate_nmi_total = 0
 karate_nmi_results = []
+karate_nf1_total = 0
+karate_nf1_results = []
 
 for i in range(n):
     karate_time_start = timeit.default_timer()
@@ -33,6 +35,9 @@ for i in range(n):
     karate_nmi = evaluation.normalized_mutual_information(karate_g_truth, coms_louvain_karate)
     karate_nmi_total += karate_nmi.score
     karate_nmi_results.append(karate_nmi.score)
+    karate_nf1 = evaluation.nf1(karate_g_truth, coms_louvain_karate)
+    karate_nf1_total += karate_nf1.score
+    karate_nf1_results.append(karate_nf1.score)
 
 karate_mod_avg = karate_mod_total / n
 karate_conductance_avg = karate_conductance_total / n
@@ -40,6 +45,8 @@ karate_mod_stdev = (sum((x-(sum(karate_mod_results) / len(karate_mod_results)))*
 karate_conductance_stdev = (sum((x-(sum(karate_conductance_results) / len(karate_conductance_results)))**2 for x in karate_conductance_results) / (len(karate_conductance_results)-1))**0.5
 karate_nmi_avg = karate_nmi_total / n
 karate_nmi_stdev = (sum((x-(sum(karate_nmi_results) / len(karate_nmi_results)))**2 for x in karate_nmi_results) / (len(karate_nmi_results)-1))**0.5
+karate_nf1_avg = karate_nf1_total / n
+karate_nf1_stdev = (sum((x-(sum(karate_nf1_results) / len(karate_nf1_results)))**2 for x in karate_nf1_results) / (len(karate_nf1_results)-1))**0.5
 
 print("Karate time: " + str(karate_time))
 print("Karate modularity: " + str(karate_mod_avg))
@@ -48,6 +55,8 @@ print("Karate conductance: " + str(karate_conductance_avg))
 print("Karate conductance stdev: " + str(karate_conductance_stdev))
 print("Karate NMI: " + str(karate_nmi_avg))
 print("Karate NMI stdev: " + str(karate_nmi_stdev))
+print("Karate NF1: " + str(karate_nf1_avg))
+print("Karate NF1 stdev: " + str(karate_nf1_stdev))
 
 #FLORENTINE
 florentine_mod_total = 0

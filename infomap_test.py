@@ -24,7 +24,7 @@ karate_nf1_results = []
 
 for i in range(n):
     karate_time_start = timeit.default_timer()
-    coms_louvain_karate = algorithms.leiden(G_karate)
+    coms_louvain_karate = algorithms.infomap(G_karate)
     karate_time += timeit.default_timer() - karate_time_start
     mod = evaluation.newman_girvan_modularity(G_karate, coms_louvain_karate)
     karate_mod_total += mod.score
@@ -58,17 +58,15 @@ print("Karate NMI stdev: " + str(karate_nmi_stdev))
 print("Karate NF1: " + str(karate_nf1_avg))
 print("Karate NF1 stdev: " + str(karate_nf1_stdev))
 
-
 #FLORENTINE
 florentine_mod_total = 0
 florentine_conductance_total = 0
 florentine_time = 0
 florentine_mod_results = []
 florentine_condcutance_results = []
-
 for i in range(n):
     florentine_time_start = timeit.default_timer()
-    coms_louvain_florentine = algorithms.leiden(G_florentine)
+    coms_louvain_florentine = algorithms.infomap(G_florentine)
     florentine_time += timeit.default_timer() - florentine_time_start
     mod = evaluation.newman_girvan_modularity(G_florentine, coms_louvain_florentine)
     florentine_mod_total += mod.score
@@ -93,10 +91,9 @@ cities_conductance_total = 0
 cities_time = 0
 cities_mod_results = []
 cities_conductance_results = []
-
 for i in range(n):
     cities_time_start = timeit.default_timer()
-    coms_louvain_cities = algorithms.louvain(G_cities)
+    coms_louvain_cities = algorithms.infomap(G_cities)
     cities_time += timeit.default_timer() - cities_time_start
     mod = evaluation.newman_girvan_modularity(G_cities, coms_louvain_cities)
     cities_mod_total += mod.score
@@ -117,7 +114,7 @@ print("Cities conductance stdev: " + str(cities_conductance_stdev))
 
 #AMAZON
 amazon_start = timeit.default_timer()
-coms_amazon = algorithms.leiden(G_amazon)
+coms_amazon = algorithms.infomap(G_amazon)
 amazon_time = timeit.default_timer() - amazon_start
 mod = evaluation.newman_girvan_modularity(G_amazon, coms_amazon)
 conductance = evaluation.conductance(G_amazon, coms_amazon)
